@@ -1,0 +1,20 @@
+[user]
+	email = marcus.orochena@gmail.com
+	name = Marcus Orochena
+[pull]
+	rebase = false
+[submodule]
+	recurse = true
+[alias]
+	st = status --short -uno
+	ci = commit
+	ca = commit --amend
+	caa = commit -a --amend
+	br = branch
+	co = checkout
+	cob = checkout -b
+	df = diff
+	lg = log -p --pretty=fuller --abbrev-commit
+	lgg = log --pretty=fuller --abbrev-commit --stat
+	up = pull --rebase
+	wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads

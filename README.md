@@ -1,31 +1,39 @@
 # dotfiles
 
 Personal config, managed with [GNU stow](https://www.gnu.org/software/stow/) via
-a small wrapper script (`dot`). Each top-level directory is a **package** whose
-contents mirror your home directory. For example:
+a small wrapper script (`dot`).
+
+Everything tracked lives under **`home/`**, which mirrors your home directory
+one-to-one:
 
 ```
-fish/.config/fish/config.fish   ->   ~/.config/fish/config.fish
-git/.gitconfig                  ->   ~/.gitconfig
-zsh/.zshrc                      ->   ~/.zshrc
+home/.config/fish/config.fish   ->   ~/.config/fish/config.fish
+home/.config/nvim/              ->   ~/.config/nvim/
+home/.gitconfig                 ->   ~/.gitconfig
+home/.zshrc                     ->   ~/.zshrc
 ```
 
 `dot install` symlinks these into place, so editing a file here or at its
-home-directory location is editing the same file.
+home-directory location is editing the same file. To add something new (e.g.
+`~/.agents`), drop it under `home/` at the matching path and run `dot restow`.
 
-## Packages
+Stow runs with `--no-folding`, so it creates real directories and symlinks only
+the tracked files. Untracked local files (secrets, caches, machine state) stay
+put alongside the symlinks.
 
-| Package    | What it configures                                  |
-|------------|-----------------------------------------------------|
-| `fish`     | Fish shell (`config.fish`)                           |
-| `zsh`      | Zsh login/interactive (`.zprofile`, `.zshrc`)       |
-| `git`      | Git (`.gitconfig`, global `ignore`)                 |
-| `nvim`     | Neovim (LazyVim)                                     |
-| `cmux`     | cmux terminal multiplexer                           |
-| `btop`     | btop system monitor                                 |
-| `mise`     | mise tool/runtime versions                          |
-| `gh`       | GitHub CLI (`config.yml` only)                      |
-| `opencode` | opencode skills + package manifest                  |
+## What's tracked
+
+| Path under `home/`       | What it configures                        |
+|--------------------------|-------------------------------------------|
+| `.config/fish/`          | Fish shell (`config.fish`)                |
+| `.zprofile`, `.zshrc`    | Zsh login / interactive                   |
+| `.gitconfig`, `.config/git/` | Git config + global ignore            |
+| `.config/nvim/`          | Neovim (LazyVim)                          |
+| `.config/cmux/`          | cmux terminal multiplexer                 |
+| `.config/btop/`          | btop system monitor                       |
+| `.config/mise/`          | mise tool/runtime versions               |
+| `.config/gh/`            | GitHub CLI (`config.yml` only)           |
+| `.config/opencode/`      | opencode skills + package manifest       |
 
 ## Setup on a new machine
 
@@ -51,17 +59,16 @@ ln -s ~/.dotfiles/dot ~/.local/bin/dot
 ## Usage
 
 ```sh
-dot install [pkg...]     # symlink packages into $HOME (default: all)
-dot uninstall [pkg...]   # remove a package's symlinks
-dot restow [pkg...]      # re-link after adding/moving files
-dot list                 # list packages
+dot install     # symlink everything under home/ into $HOME
+dot uninstall   # remove those symlinks
+dot restow      # re-link after adding or moving files
 ```
 
 ## Secrets & machine-local files
 
 Nothing sensitive is committed. These live only on each machine and are
-gitignored: `secrets.fish`, `fish_variables`, `gh/hosts.yml`,
-`containers/auth.json`, and `opencode/node_modules`.
+gitignored / never moved into the repo: `secrets.fish`, `fish_variables`,
+`gh/hosts.yml`, `containers/auth.json`, and `opencode/node_modules`.
 
 To track a new secret, add it to `~/.config/fish/secrets.fish` (sourced
 automatically by `config.fish` if present) and document it in

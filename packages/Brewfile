@@ -1,0 +1,65 @@
+tap "infisical/get-cli"
+# Static checker for GitHub Actions workflow files
+brew "actionlint"
+# Official Amazon AWS command-line interface
+brew "awscli"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
+# Cloudflare Tunnel client (formerly Argo Tunnel)
+brew "cloudflared"
+# Tool for interacting with remote images and registries
+brew "crane"
+# Play, record, convert, and stream select audio and video codecs
+brew "ffmpeg"
+# User-friendly command-line shell for UNIX-like operating systems
+brew "fish"
+# Quickly rewrite git repository history
+brew "git-filter-repo"
+# Git extension for versioning large files
+brew "git-lfs"
+# Render markdown on the CLI
+brew "glow"
+# Postgres C API library
+brew "libpq"
+# Development kit for the Java programming language
+brew "openjdk@17"
+# Swiss-army knife of markup format conversion
+brew "pandoc"
+# Generic machine emulator and virtualizer
+brew "qemu"
+# File browser
+brew "ranger"
+# Cross-shell prompt for astronauts
+brew "starship"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
+brew "stow"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
+# 3D creation suite
+cask "blender"
+# Terminal-based AI coding assistant
+cask "claude-code"
+# Database version management tool
+cask "dbngin"
+# Voice and text chat software
+cask "discord"
+# Developer platform
+cask "dotnet-sdk"
+cask "font-maple-mono-nf"
+# C# scripting capable version of Godot game engine
+cask "godot-mono"
+# Presentation software
+cask "microsoft-powerpoint"
+# Meet, chat, call, and collaborate in just one place
+cask "microsoft-teams"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+# Plugin for AWS CLI to start and end sessions that connect to managed instances
+cask "session-manager-plugin"
+# Music streaming service
+cask "spotify"
+# Native GUI tool for relational databases
+cask "tableplus"
+# REST, GraphQL and gRPC client
+cask "yaak"
+npm "pnpm"

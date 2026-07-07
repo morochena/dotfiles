@@ -40,7 +40,8 @@ put alongside the symlinks.
 ```sh
 git clone git@github.com:morochena/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-./dot install            # installs stow if missing, then symlinks everything
+brew bundle --file=packages/Brewfile   # install all packages (see below)
+./dot install                          # symlink everything into $HOME
 ```
 
 Then create machine-local secrets (never committed):
@@ -63,6 +64,21 @@ dot install     # symlink everything under home/ into $HOME
 dot uninstall   # remove those symlinks
 dot restow      # re-link after adding or moving files
 ```
+
+## Packages (Homebrew)
+
+`packages/Brewfile` is a [Homebrew Bundle](https://github.com/Homebrew/homebrew-bundle)
+manifest of installed taps, formulae, casks, and global npm packages. It is a
+manifest, not a dotfile — it is not symlinked.
+
+```sh
+brew bundle --file=packages/Brewfile          # install everything listed
+brew bundle dump --file=packages/Brewfile --force  # refresh from current system
+brew bundle cleanup --file=packages/Brewfile  # (preview) uninstall anything not listed
+```
+
+After installing or removing Homebrew packages, re-run the `dump` command and
+commit the updated Brewfile.
 
 ## Secrets & machine-local files
 

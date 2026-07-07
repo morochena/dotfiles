@@ -21,6 +21,8 @@ brew "git-lfs"
 brew "glow"
 # Postgres C API library
 brew "libpq"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
 # Development kit for the Java programming language
 brew "openjdk@17"
 # Swiss-army knife of markup format conversion

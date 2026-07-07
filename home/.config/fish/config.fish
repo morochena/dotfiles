@@ -1,4 +1,7 @@
-~/.local/bin/mise activate fish | source
+# Homebrew — puts brew-installed tools (incl. mise) on PATH
+/opt/homebrew/bin/brew shellenv fish | source
+
+mise activate fish | source
 
 if status is-interactive
     # Commands to run in interactive sessions can go here

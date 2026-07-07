@@ -1,0 +1,20 @@
+# Machine-local secrets — never commit
+**/secrets.fish
+**/*.local
+**/.env
+**/.env.*
+
+# Auth / credential files (managed per-machine by their tools)
+**/hosts.yml
+**/auth.json
+
+# Machine-local shell state
+**/fish_variables
+
+# Dependencies / build artifacts
+**/node_modules/
+**/package-lock.json
+**/bun.lock
+
+# OS cruft
+.DS_Store

@@ -1,0 +1,13 @@
+[tools]
+codex = "latest"
+direnv = "latest"
+elixir = "1.19.5"
+erlang = "latest"
+fzf = "latest"
+github-cli = "latest"
+lazygit = "latest"
+neovim = "latest"
+node = "latest"
+opencode = "latest"
+ripgrep = "latest"
+typst = "latest"

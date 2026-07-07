@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# dot — manage this dotfiles repo with GNU stow.
+#
+#   dot install   [pkg...]   symlink packages into $HOME (default: all)
+#   dot uninstall [pkg...]   remove a package's symlinks
+#   dot restow    [pkg...]   re-link (use after adding/moving files)
+#   dot list                 list available packages
+#   dot help                 show this help
+#
+# A "package" is any top-level directory here (btop, fish, nvim, ...).
+# Each package mirrors your home layout, e.g. fish/.config/fish/config.fish
+# links to ~/.config/fish/config.fish.
+set -euo pipefail
+
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+TARGET="$HOME"
+
+die() { echo "dot: $*" >&2; exit 1; }
+
+ensure_stow() {
+  command -v stow >/dev/null 2>&1 && return
+  echo "==> stow not found; installing with Homebrew..."
+  command -v brew >/dev/null 2>&1 || die "Homebrew not found. Install stow manually: https://www.gnu.org/software/stow/"
+  brew install stow
+}
+
+all_packages() {
+  # Every top-level directory except VCS metadata.
+  find "$DOTFILES_DIR" -mindepth 1 -maxdepth 1 -type d ! -name '.git' \
+    -exec basename {} \; | sort
+}
+
+packages_or_all() {
+  if [ "$#" -gt 0 ]; then printf '%s\n' "$@"; else all_packages; fi
+}
+
+cmd="${1:-help}"; shift || true
+
+case "$cmd" in
+  install)
+    ensure_stow
+    # shellcheck disable=SC2046
+    stow --dir="$DOTFILES_DIR" --target="$TARGET" --verbose $(packages_or_all "$@")
+    echo "==> installed."
+    ;;
+  uninstall|remove)
+    ensure_stow
+    # shellcheck disable=SC2046
+    stow --dir="$DOTFILES_DIR" --target="$TARGET" --verbose -D $(packages_or_all "$@")
+    echo "==> uninstalled."
+    ;;
+  restow|relink)
+    ensure_stow
+    # shellcheck disable=SC2046
+    stow --dir="$DOTFILES_DIR" --target="$TARGET" --verbose -R $(packages_or_all "$@")
+    echo "==> restowed."
+    ;;
+  list|ls)
+    all_packages
+    ;;
+  help|-h|--help)
+    sed -n '2,17p' "$0" | sed 's/^# \{0,1\}//'
+    ;;
+  *)
+    die "unknown command '$cmd' (try: dot help)"
+    ;;
+esac
